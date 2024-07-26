@@ -3,15 +3,39 @@ import { Table, Pagination } from 'react-bootstrap';
 
 const TaskTable = ({ tasks, onEdit, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: 'title', direction: 'asc' }); // Default sort by title
   const itemsPerPage = 10; // Number of items per page
 
   // Pagination logic
   const totalPages = Math.ceil(tasks.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentTasks = tasks.slice(startIndex, startIndex + itemsPerPage);
+  const endIndex = startIndex + itemsPerPage;
+  
+  // Sorting logic
+  const sortedTasks = [...tasks].sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'asc' ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'asc' ? 1 : -1;
+    }
+    return 0;
+  });
+
+  // Paginated and sorted tasks
+  const currentTasks = sortedTasks.slice(startIndex, endIndex);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleSort = (key) => {
+    setSortConfig((prevSortConfig) => ({
+      key,
+      direction: prevSortConfig.key === key
+        ? (prevSortConfig.direction === 'asc' ? 'desc' : 'asc')
+        : 'asc',
+    }));
   };
 
   const paginationItems = [];
@@ -32,9 +56,15 @@ const TaskTable = ({ tasks, onEdit, onDelete }) => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Completed</th>
+            <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
+              Title {sortConfig.key === 'title' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
+            </th>
+            <th onClick={() => handleSort('description')} style={{ cursor: 'pointer' }}>
+              Description {sortConfig.key === 'description' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
+            </th>
+            <th onClick={() => handleSort('completed')} style={{ cursor: 'pointer' }}>
+              Completed {sortConfig.key === 'completed' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
+            </th>
             <th>Actions</th>
           </tr>
         </thead>
