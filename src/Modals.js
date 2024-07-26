@@ -36,17 +36,36 @@ const Modals = ({
 
     {/* Success Toast */}
     <Toast
-      onClose={handleCloseSuccessToast}
-      show={showSuccessToast}
-      delay={3000}
-      autohide
-      style={{ position: 'absolute', top: 0, right: 0 }}
-    >
-      <Toast.Header>
-        <strong className="mr-auto">Success</strong>
-      </Toast.Header>
-      <Toast.Body>Task saved successfully.</Toast.Body>
-    </Toast>
+  onClose={handleCloseSuccessToast}
+  show={showSuccessToast}
+  delay={3000}
+  autohide
+  style={{
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    backgroundColor: '#28a745', // Green background for the whole toast
+    color: '#fff', // White text
+  }}
+>
+  <Toast.Header
+    style={{
+      backgroundColor: '#1c7430', // Dark green background for the header
+      color: '#fff', // White text
+    }}
+  >
+    <strong className="mr-auto">Success</strong>
+  </Toast.Header>
+  <Toast.Body
+    style={{
+      backgroundColor: '#28a745', // Green background for the body
+      color: '#e6f9e6', // Light green text
+    }}
+  >
+    Task saved successfully.
+  </Toast.Body>
+</Toast>
+
   </>
 );
 
