@@ -7,6 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
   const [editedTaskId, setEditedTaskId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   useEffect(() => {
     fetchTasks();
@@ -28,49 +32,51 @@ const TaskManager = () => {
       const url = editedTaskId ? `http://localhost:2000/tasks/${editedTaskId}` : 'http://localhost:2000/tasks';
       await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(task).toString()
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task)
       });
       fetchTasks();
       setEditedTaskId(null);
-      document.getElementById('successToast').classList.add('show');
+      setShowSuccessToast(true);
     } catch (error) {
       console.error('Error saving task:', error);
-      document.getElementById('errorModal').classList.add('show');
+      setShowErrorModal(true);
     }
   };
 
-  const handleDeleteTask = async (taskId) => {
+  const handleDeleteClick = (taskId) => {
+    setTaskToDelete(taskId);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
-      await fetch(`http://localhost:2000/tasks/${taskId}`, { method: 'DELETE' });
+      await fetch(`http://localhost:2000/tasks/${taskToDelete}`, {
+        method: 'DELETE'
+      });
       fetchTasks();
+      setShowDeleteModal(false);
     } catch (error) {
       console.error('Error deleting task:', error);
-      document.getElementById('errorModal').classList.add('show');
-    }
-  };
-
-  const handleEditTask = async (taskId) => {
-    setEditedTaskId(taskId);
-    try {
-      const response = await fetch(`http://localhost:2000/tasks/${taskId}`);
-      const task = await response.json();
-      document.getElementById('title').value = task.title;
-      document.getElementById('description').value = task.description;
-      document.getElementById('completed').checked = task.completed;
-    } catch (error) {
-      console.error('Error fetching task for editing:', error);
+      setShowErrorModal(true);
     }
   };
 
   return (
     <div className="container mt-5">
-      <h2>Create New Task</h2>
       <TaskForm onSave={handleSaveTask} editedTaskId={editedTaskId} />
       <hr />
-      <h2>All Tasks</h2>
-      <TaskTable tasks={tasks} onEdit={handleEditTask} onDelete={handleDeleteTask} />
-      <Modals />
+      <TaskTable tasks={tasks} onEdit={setEditedTaskId} onDelete={handleDeleteClick} />
+      
+      <Modals
+        showDeleteModal={showDeleteModal}
+        handleCloseDeleteModal={() => setShowDeleteModal(false)}
+        handleConfirmDelete={handleConfirmDelete}
+        showErrorModal={showErrorModal}
+        handleCloseErrorModal={() => setShowErrorModal(false)}
+        showSuccessToast={showSuccessToast}
+        handleCloseSuccessToast={() => setShowSuccessToast(false)}
+      />
     </div>
   );
 };
