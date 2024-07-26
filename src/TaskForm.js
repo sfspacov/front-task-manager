@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
-const TaskForm = ({ onSave, editedTaskId }) => {
+const TaskForm = ({ onSave, editedTask }) => {
   const [task, setTask] = useState({ title: '', description: '', completed: false });
 
   useEffect(() => {
-    if (editedTaskId) {
+    if (editedTask) {
+      debugger
+        setTask(editedTask);
+
       // Fetch task data for editing
     } else {
       setTask({ title: '', description: '', completed: false });
     }
-  }, [editedTaskId]);
+  }, [editedTask]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

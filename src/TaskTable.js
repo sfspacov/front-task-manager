@@ -45,7 +45,7 @@ const TaskTable = ({ tasks, onEdit, onDelete }) => {
               <td>{task.description}</td>
               <td>{task.completed ? 'Yes' : 'No'}</td>
               <td>
-                <button className="btn btn-info btn-sm" onClick={() => onEdit(task.id)}>Edit</button>
+                <button className="btn btn-info btn-sm" onClick={() => onEdit(task)}>Edit</button>
                 <button className="btn btn-danger btn-sm ml-2" onClick={() => onDelete(task.id)}>Delete</button>
               </td>
             </tr>

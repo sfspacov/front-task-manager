@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const TaskManager = () => {
   const [tasks, setTasks] = useState([]);
-  const [editedTaskId, setEditedTaskId] = useState(null);
+  const [editedTask, setEditedTask] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
@@ -28,15 +28,16 @@ const TaskManager = () => {
 
   const handleSaveTask = async (task, onSuccess) => {
     try {
-      const method = editedTaskId ? 'PUT' : 'POST';
-      const url = editedTaskId ? `http://localhost:2000/tasks/${editedTaskId}` : 'http://localhost:2000/tasks';
+        debugger
+      const method = editedTask ? 'PUT' : 'POST';
+      const url = editedTask ? `http://localhost:2000/tasks/${editedTask.id}` : 'http://localhost:2000/tasks';
       await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task)
       });
       fetchTasks();
-      setEditedTaskId(null);
+      setEditedTask(null);
       setShowSuccessToast(true);
       if (onSuccess)
         onSuccess();
@@ -66,9 +67,9 @@ const TaskManager = () => {
 
   return (
     <div className="container mt-5">
-      <TaskForm onSave={handleSaveTask} editedTaskId={editedTaskId} />
+      <TaskForm onSave={handleSaveTask} editedTask={editedTask} />
       <hr />
-      <TaskTable tasks={tasks} onEdit={setEditedTaskId} onDelete={handleDeleteClick} />
+      <TaskTable tasks={tasks} onEdit={setEditedTask} onDelete={handleDeleteClick} />
       
       <Modals
         showDeleteModal={showDeleteModal}
