@@ -26,7 +26,7 @@ const TaskManager = () => {
     }
   };
 
-  const handleSaveTask = async (task) => {
+  const handleSaveTask = async (task, onSuccess) => {
     try {
       const method = editedTaskId ? 'PUT' : 'POST';
       const url = editedTaskId ? `http://localhost:2000/tasks/${editedTaskId}` : 'http://localhost:2000/tasks';
@@ -38,6 +38,8 @@ const TaskManager = () => {
       fetchTasks();
       setEditedTaskId(null);
       setShowSuccessToast(true);
+      if (onSuccess)
+        onSuccess();
     } catch (error) {
       console.error('Error saving task:', error);
       setShowErrorModal(true);

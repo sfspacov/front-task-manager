@@ -16,9 +16,10 @@ const TaskForm = ({ onSave, editedTaskId }) => {
     setTask({ ...task, [name]: type === 'checkbox' ? checked : value });
   };
 
+  const clearForm =() => setTask({ title: '', description: '', completed: false });
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(task);
+    onSave(task, clearForm);
   };
 
   return (
@@ -36,7 +37,7 @@ const TaskForm = ({ onSave, editedTaskId }) => {
         <label className="form-check-label" htmlFor="completed">Completed</label>
       </div>
       <div className="text-center">
-        <button type="button" className="btn btn-danger" onClick={() => setTask({ title: '', description: '', completed: false })}>Cancel</button>
+        <button type="button" className="btn btn-danger" onClick={clearForm}>Cancel</button>
         <button type="submit" className="btn btn-success">Save</button>
       </div>
     </form>
