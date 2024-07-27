@@ -34,11 +34,11 @@ const Login = ({ onLogin }) => {
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">Username</label>
+          <label htmlFor="email" className="form-label">E-mail</label>
           <input
             type="text"
             className="form-control"
-            id="username"
+            id="email"
             value={email}
             required
             onChange={(e) => setEmail(e.target.value)}
