@@ -6,9 +6,10 @@ import Login from './Login';
 import { useAuth } from './AuthContext';
 
 const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('authToken');
   const { isAuthenticated } = useAuth();
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated || token ? children : <Navigate to="/login" />;
 };
 
 const App = () => {
