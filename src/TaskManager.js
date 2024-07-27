@@ -3,8 +3,10 @@ import TaskForm from './TaskForm';
 import TaskTable from './TaskTable';
 import Modals from './Modals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useAuth } from './AuthContext';
 
 const TaskManager = () => {
+  const { logout } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [editedTask, setEditedTask] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -22,7 +24,6 @@ const TaskManager = () => {
       const headers = {
         'Content-Type': 'application/json',
       };
-      debugger
       if (token) {
         headers['Authorization'] = `Bearer ${token}`; // Adiciona o token ao cabeçalho
       }
@@ -38,7 +39,6 @@ const TaskManager = () => {
 
   const handleSaveTask = async (task, onSuccess) => {
     try {
-        debugger
       const method = editedTask ? 'PUT' : 'POST';
       const url = editedTask ? `http://localhost:2000/tasks/${editedTask.id}` : 'http://localhost:2000/tasks';
       await fetch(url, {
@@ -77,6 +77,9 @@ const TaskManager = () => {
 
   return (
     <div className="container mt-5">
+      <div className="d-flex justify-content-end mb-3">
+        <button className="btn btn-danger" onClick={logout}>Logout</button>
+      </div>
       <TaskForm onSave={handleSaveTask} editedTask={editedTask} />
       <hr />
       <TaskTable tasks={tasks} onEdit={setEditedTask} onDelete={handleDeleteClick} />

@@ -12,7 +12,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
-    debugger
     if (token) {
       setIsAuthenticated(true); // Verificar token e definir estado de autenticação
     }

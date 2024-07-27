@@ -5,7 +5,6 @@ const TaskForm = ({ onSave, editedTask }) => {
 
   useEffect(() => {
     if (editedTask) {
-      debugger
         setTask(editedTask);
 
       // Fetch task data for editing
