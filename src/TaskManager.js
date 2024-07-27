@@ -18,7 +18,17 @@ const TaskManager = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch('http://localhost:2000/tasks');
+      const token = localStorage.getItem('authToken'); // Recupera o token do armazenamento local
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      debugger
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`; // Adiciona o token ao cabeçalho
+      }
+      const response = await fetch('http://localhost:2000/tasks', {
+        headers,
+      });
       const data = await response.json();
       setTasks(data);
     } catch (error) {

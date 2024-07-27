@@ -1,13 +1,13 @@
 // src/Login.js
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate(); // Hook para navegação
   const handleSubmit = async (e) => {
     e.preventDefault();
-    debugger
     try {
         const response = await fetch('http://localhost:2000/login', {
           method: 'POST',
@@ -19,8 +19,9 @@ const Login = ({ onLogin }) => {
     
         const data = await response.json();
         if (response.ok) {
-          console.log('Login successful:', data);
-        } else {
+            onLogin(data.token); // Salvar o token recebido
+            navigate('/'); // Redirecionar para a página inicial (TaskManager)
+          } else {
           console.error('Login failed:', data.message);
         }
       } catch (error) {
