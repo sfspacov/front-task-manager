@@ -1,0 +1,33 @@
+/* src/TaskForm.css */
+.task-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5; /* Light background color */
+  }
+  
+  .task-form-box {
+    width: 500px; /* Width of the form box */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .task-form-box h2 {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .btn {
+    margin: 5px;
+  }
+  
