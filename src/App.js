@@ -6,9 +6,10 @@ import Login from './components/Login';
 import { useAuth } from './contexts/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-  const token = localStorage.getItem('authToken');
+  let token = localStorage.getItem('authToken');
   const { isAuthenticated } = useAuth();
-
+  if (isAuthenticated)
+    token = null
   return isAuthenticated || token ? children : <Navigate to="/login" />;
 };
 
