@@ -1,9 +1,9 @@
 // src/App.js
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import TaskManager from './TaskManager';
-import Login from './Login';
-import { useAuth } from './AuthContext';
+import TaskManager from './components/TaskManager';
+import Login from './components/Login';
+import { useAuth } from './contexts/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem('authToken');

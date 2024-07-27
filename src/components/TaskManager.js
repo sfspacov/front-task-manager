@@ -4,8 +4,8 @@ import TaskForm from './TaskForm';
 import TaskTable from './TaskTable';
 import Modals from './Modals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useAuth } from './AuthContext';
-import './TaskManager.css'; // Import the CSS file
+import { useAuth } from '../contexts/AuthContext';
+import '../css/TaskManager.css'; // Import the CSS file
 
 const TaskManager = () => {
   const { logout } = useAuth();

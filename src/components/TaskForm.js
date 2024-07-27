@@ -1,6 +1,6 @@
 // src/TaskForm.js
 import React, { useState, useEffect } from 'react';
-import './TaskForm.css'; // Import the CSS file
+import '../css/TaskForm.css'; // Import the CSS file
 
 const TaskForm = ({ onSave, editedTask }) => {
   const [task, setTask] = useState({ title: '', description: '', completed: false });
