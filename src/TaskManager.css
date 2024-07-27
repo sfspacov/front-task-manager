@@ -1,0 +1,28 @@
+/* src/TaskManager.css */
+.task-manager-container {
+    max-width: 1200px; /* Max width of the container */
+    margin: 0 auto; /* Center horizontally */
+    padding: 20px; /* Padding around the container */
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  }
+  
+  .d-flex {
+    margin-bottom: 20px; /* Space below the logout button */
+  }
+  
+  .btn-danger {
+    margin-left: auto; /* Align logout button to the right */
+  }
+  
+  hr {
+    margin: 20px 0; /* Space around the horizontal rule */
+  }
+  
+  @media (max-width: 768px) {
+    .task-manager-container {
+      padding: 15px; /* Adjust padding for smaller screens */
+    }
+  }
+  

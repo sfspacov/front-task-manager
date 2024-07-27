@@ -1,9 +1,11 @@
+// src/TaskManager.js
 import React, { useState, useEffect } from 'react';
 import TaskForm from './TaskForm';
 import TaskTable from './TaskTable';
 import Modals from './Modals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from './AuthContext';
+import './TaskManager.css'; // Import the CSS file
 
 const TaskManager = () => {
   const { logout } = useAuth();
@@ -39,11 +41,18 @@ const TaskManager = () => {
 
   const handleSaveTask = async (task, onSuccess) => {
     try {
+      const token = localStorage.getItem('authToken'); // Recupera o token do armazenamento local
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`; // Adiciona o token ao cabeçalho
+      }
       const method = editedTask ? 'PUT' : 'POST';
       const url = editedTask ? `http://localhost:2000/tasks/${editedTask.id}` : 'http://localhost:2000/tasks';
       await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(task)
       });
       fetchTasks();
@@ -64,8 +73,16 @@ const TaskManager = () => {
 
   const handleConfirmDelete = async () => {
     try {
+      const token = localStorage.getItem('authToken'); // Recupera o token do armazenamento local
+      const headers = {
+        'Content-Type': 'application/json',
+      };
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`; // Adiciona o token ao cabeçalho
+      }
       await fetch(`http://localhost:2000/tasks/${taskToDelete}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers,
       });
       fetchTasks();
       setShowDeleteModal(false);
@@ -76,14 +93,16 @@ const TaskManager = () => {
   };
 
   return (
-    <div className="container mt-5">
+    <>
       <div className="d-flex justify-content-end mb-3">
-        <button className="btn btn-danger" onClick={logout}>Logout</button>
+        <button className="btn btn-link" onClick={logout}>Logout</button>
       </div>
+      <div className="task-manager-container">
+
       <TaskForm onSave={handleSaveTask} editedTask={editedTask} />
       <hr />
       <TaskTable tasks={tasks} onEdit={setEditedTask} onDelete={handleDeleteClick} />
-      
+
       <Modals
         showDeleteModal={showDeleteModal}
         handleCloseDeleteModal={() => setShowDeleteModal(false)}
@@ -93,7 +112,8 @@ const TaskManager = () => {
         showSuccessToast={showSuccessToast}
         handleCloseSuccessToast={() => setShowSuccessToast(false)}
       />
-    </div>
+      </div>
+    </>
   );
 };
 
