@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
-        <Route path="/login" element={<Login onLogin={login} />} />
+        <Route exact path="/login" element={<Login onLogin={login} />} />
         <Route
           path="/"
           element={
