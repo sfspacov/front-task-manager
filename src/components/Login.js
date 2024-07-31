@@ -6,7 +6,7 @@ import '../css/Login.css'; // Import the CSS file
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -20,10 +20,10 @@ const Login = ({ onLogin }) => {
     
         const data = await response.json();
         if (response.ok) {
-            onLogin(data.token); // Salvar o token recebido
-            navigate('/'); // Redirecionar para a página inicial (TaskManager)
+            onLogin(data.token);
+            navigate('/');
           } else {
-          console.error('Login failed:', data.message);
+          alert('Login failed!', data.message);
         }
       } catch (error) {
         console.error('Error during login:', error);
