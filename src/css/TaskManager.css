@@ -1,6 +1,5 @@
 /* src/TaskManager.css */
 .task-manager-container {
-    max-width: 1200px; /* Max width of the container */
     margin: 0 auto; /* Center horizontally */
     padding: 20px; /* Padding around the container */
     background-color: #f8f9fa; /* Light background color */
