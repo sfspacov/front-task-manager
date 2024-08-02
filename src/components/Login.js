@@ -1,15 +1,16 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 import '../css/Login.css'; // Import the CSS file
 import Signup from './Signup'; // Import the Signup component
+import RecoveryPassword from './RecoveryPassword'; // Import the RecoveryPassword component
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showSignup, setShowSignup] = useState(false);
+  const [showRecovery, setShowRecovery] = useState(false); // Add state for RecoveryPassword
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -61,6 +62,8 @@ const Login = ({ onLogin }) => {
       <ToastContainer /> {/* Add ToastContainer for toasts */}
       {showSignup ? (
         <Signup onClose={() => setShowSignup(false)} />
+      ) : showRecovery ? (
+        <RecoveryPassword onClose={() => setShowRecovery(false)} />
       ) : (
         <div className="login-box">
           <h2>Login</h2>
@@ -97,8 +100,8 @@ const Login = ({ onLogin }) => {
             <button
               type="button"
               className="btn btn-link"
-              onClick={() => setShowSignup(true)}>
-              Forgot Password
+              onClick={() => setShowRecovery(true)}>
+              Forgot Password?
             </button>
           </form>
         </div>
