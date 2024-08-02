@@ -5,7 +5,7 @@ import { Table, Pagination } from 'react-bootstrap';
 const TaskTable = ({ tasks, onEdit, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortConfig, setSortConfig] = useState({ key: 'title', direction: 'asc' }); // Default sort by title
-  const itemsPerPage = 5; // Number of items per page
+  const itemsPerPage = 3; // Number of items per page
 
   // Pagination logic
   const totalPages = Math.ceil(tasks.length / itemsPerPage);
