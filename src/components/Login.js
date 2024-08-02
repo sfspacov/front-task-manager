@@ -1,5 +1,8 @@
+// src/components/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 import '../css/Login.css'; // Import the CSS file
 import Signup from './Signup'; // Import the Signup component
 
@@ -25,15 +28,37 @@ const Login = ({ onLogin }) => {
         onLogin(data.token);
         navigate('/');
       } else {
-        alert('Login failed!', data.message);
+        // Replace alert with toast error message
+        toast.error(`Login failed: ${data.message || 'Unknown error'}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     } catch (error) {
       console.error('Error during login:', error);
+      // Handle fetch error with toast
+      toast.error('An error occurred during login. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
   return (
     <div className="login-container">
+      <ToastContainer /> {/* Add ToastContainer for toasts */}
       {showSignup ? (
         <Signup onClose={() => setShowSignup(false)} />
       ) : (
@@ -66,9 +91,14 @@ const Login = ({ onLogin }) => {
             <button
               type="button"
               className="btn btn-link"
-              onClick={() => setShowSignup(true)}
-            >
+              onClick={() => setShowSignup(true)}>
               Create New User
+            </button>
+            <button
+              type="button"
+              className="btn btn-link"
+              onClick={() => setShowSignup(true)}>
+              Forgot Password
             </button>
           </form>
         </div>
