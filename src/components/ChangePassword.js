@@ -4,8 +4,10 @@ import { toast, ToastContainer } from 'react-toastify'; // Import Toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for programmatic navigation
 import '../css/Login.css'; // Import the CSS file
+import { useAuth } from '../contexts/AuthContext';
 
 const PasswordReset = () => {
+  const { logout } = useAuth();
   const [email, setEmail] = useState('');
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -47,7 +49,8 @@ const PasswordReset = () => {
           theme: "colored",
         });
         setTimeout(() => {
-            navigate('/login'); // Navigate to the login page after success
+            logout();
+            navigate('/'); // Navigate to the login page after success
         }, 3000); 
       } else {
         const data = await response.json();
@@ -124,7 +127,7 @@ const PasswordReset = () => {
             />
           </div>
           <button type="submit" className="btn btn-success">Confirm</button>
-          <button type="button" className="btn btn-danger" onClick={() => navigate('/login')}>Cancel</button>
+          <button type="button" className="btn btn-danger" onClick={() => navigate('/')}>Cancel</button>
         </form>
       </div>
     </div>

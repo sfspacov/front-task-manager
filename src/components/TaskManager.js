@@ -95,23 +95,23 @@ const TaskManager = () => {
   return (
     <>
       <div className="d-flex justify-content-end mb-3">
+        <a className="btn btn-link" href="http://localhost:3000/ChangePassword">Change Password</a> {/* Link to ChangePassword */}
         <button className="btn btn-link" onClick={logout}>Logout</button>
       </div>
       <div className="task-manager-container">
+        <TaskForm onSave={handleSaveTask} editedTask={editedTask} />
+        <hr />
+        <TaskTable tasks={tasks} onEdit={setEditedTask} onDelete={handleDeleteClick} />
 
-      <TaskForm onSave={handleSaveTask} editedTask={editedTask} />
-      <hr />
-      <TaskTable tasks={tasks} onEdit={setEditedTask} onDelete={handleDeleteClick} />
-
-      <Modals
-        showDeleteModal={showDeleteModal}
-        handleCloseDeleteModal={() => setShowDeleteModal(false)}
-        handleConfirmDelete={handleConfirmDelete}
-        showErrorModal={showErrorModal}
-        handleCloseErrorModal={() => setShowErrorModal(false)}
-        showSuccessToast={showSuccessToast}
-        handleCloseSuccessToast={() => setShowSuccessToast(false)}
-      />
+        <Modals
+          showDeleteModal={showDeleteModal}
+          handleCloseDeleteModal={() => setShowDeleteModal(false)}
+          handleConfirmDelete={handleConfirmDelete}
+          showErrorModal={showErrorModal}
+          handleCloseErrorModal={() => setShowErrorModal(false)}
+          showSuccessToast={showSuccessToast}
+          handleCloseSuccessToast={() => setShowSuccessToast(false)}
+        />
       </div>
     </>
   );
