@@ -28,7 +28,9 @@ const RecoveryPassword = ({ onClose }) => {
           progress: undefined,
           theme: "colored",
         });
-        onClose(); // Close the recovery form/modal
+        setTimeout(() => {
+            onClose();
+          }, 5000); // 3000 milliseconds = 3 seconds
       } else {
         const data = await response.json();
         toast.error(data.message || 'Failed to send recovery email', {
