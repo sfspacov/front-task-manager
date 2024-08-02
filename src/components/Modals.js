@@ -2,14 +2,14 @@
 import React from 'react';
 import { Modal, Button, Toast } from 'react-bootstrap';
 
-const Modals = ({ 
-  showDeleteModal, 
-  handleCloseDeleteModal, 
-  handleConfirmDelete, 
-  showErrorModal, 
-  handleCloseErrorModal, 
-  showSuccessToast, 
-  handleCloseSuccessToast 
+const Modals = ({
+  showDeleteModal,
+  handleCloseDeleteModal,
+  handleConfirmDelete,
+  showErrorModal,
+  handleCloseErrorModal,
+  showSuccessToast,
+  handleCloseSuccessToast
 }) => (
   <>
     {/* Delete Confirmation Modal */}
@@ -37,35 +37,37 @@ const Modals = ({
 
     {/* Success Toast */}
     <Toast
-  onClose={handleCloseSuccessToast}
-  show={showSuccessToast}
-  delay={3000}
-  autohide
-  style={{
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    backgroundColor: '#28a745', // Green background for the whole toast
-    color: '#fff', // White text
-  }}
->
-  <Toast.Header
-    style={{
-      backgroundColor: '#1c7430', // Dark green background for the header
-      color: '#fff', // White text
-    }}
-  >
-    <strong className="mr-auto">Success</strong>
-  </Toast.Header>
-  <Toast.Body
-    style={{
-      backgroundColor: '#28a745', // Green background for the body
-      color: '#e6f9e6', // Light green text
-    }}
-  >
-    Task saved successfully.
-  </Toast.Body>
-</Toast>
+      onClose={handleCloseSuccessToast}
+      show={showSuccessToast}
+      delay={3000}
+      autohide
+      style={{
+        position: 'absolute',
+        top: '10px', // Adjust the vertical position
+        left: '50%',
+        transform: 'translateX(-50%)', // Center horizontally
+        zIndex: 1050, // Ensure it appears above other elements
+        backgroundColor: '#28a745', // Green background for the whole toast
+        color: '#fff', // White text
+      }}
+    >
+      <Toast.Header
+        style={{
+          backgroundColor: '#1c7430', // Dark green background for the header
+          color: '#fff', // White text
+        }}
+      >
+        <strong className="mr-auto">Success</strong>
+      </Toast.Header>
+      <Toast.Body
+        style={{
+          backgroundColor: '#28a745', // Green background for the body
+          color: '#e6f9e6', // Light green text
+        }}
+      >
+        Task saved successfully.
+      </Toast.Body>
+    </Toast>
 
   </>
 );
