@@ -1,4 +1,7 @@
+// src/components/Signup.js
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 import '../css/Login.css'; // Import the CSS file
 
 const Signup = ({ onClose }) => {
@@ -16,20 +19,48 @@ const Signup = ({ onClose }) => {
         body: JSON.stringify({ email, password }),
       });
       if (response.ok) {
-        alert('User created successfully');
+        toast.success('User created successfully!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
         onClose(); // Close the signup form/modal
       } else {
         const data = await response.json();
-        alert(data.message || 'Failed to create user');
+        toast.error(data.message || 'Failed to create user', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred');
+      toast.error('An error occurred during signup. Please try again.', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
 
   return (
     <div className="login-container">
+      <ToastContainer /> {/* Add ToastContainer for toasts */}
       <div className="login-box">
         <h2>Create New User</h2>
         <form onSubmit={handleSubmit}>
