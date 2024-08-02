@@ -3,13 +3,12 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import TaskManager from './components/TaskManager';
 import Login from './components/Login';
+import PasswordReset from './components/ChangePassword'; // Import PasswordReset component
 import { useAuth } from './contexts/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-  let token = localStorage.getItem('authToken');
   const { isAuthenticated } = useAuth();
-  if (isAuthenticated)
-    token = null
+  const token = localStorage.getItem('authToken');
   return isAuthenticated || token ? children : <Navigate to="/login" />;
 };
 
@@ -19,7 +18,7 @@ const App = () => {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/login" element={<Login onLogin={login} />} />
+        <Route path="/login" element={<Login onLogin={login} />} />
         <Route
           path="/"
           element={
@@ -28,6 +27,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/changePassword" element={<PasswordReset />} /> {/* Add PasswordReset route */}
       </Routes>
     </div>
   );
