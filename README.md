@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## **🌟 Backend project that fits perfectly with this frontend: [https://github.com/sfspacov/backend-task-manager](https://github.com/sfspacov/backend-task-manager) 🌟**
+
 ## Available Scripts
 
 In the project directory, you can run:
